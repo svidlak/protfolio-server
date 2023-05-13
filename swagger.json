@@ -11,14 +11,41 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "authorization"
+    }
+  },
   "paths": {
+    "/api/v1/auth": {
+      "get": {
+        "summary": "Get auth token",
+        "tags": ["Auth"],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Get auth token"
+          }
+        }
+      }
+    },
     "/api/v1/users": {
       "get": {
         "summary": "Get all Users",
         "tags": [
           "Users"
         ],
-        "parameters": [],
+        "parameters": [{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }],
+        "security": [{
+          "ApiKeyAuth": []
+        }],
         "responses": {
           "200": {
             "description": "Get all Users",
@@ -37,6 +64,12 @@
           "Users"
         ],
         "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": true,
+            "type": "string"
+          },
           {
             "in": "body",
             "name": "body",
@@ -60,6 +93,9 @@
             }
           }
         ],
+        "security": [{
+          "ApiKeyAuth": []
+        }],
         "responses": {
           "201": {
             "description": "Create new User",
@@ -81,6 +117,15 @@
           "name": "id",
           "type": "string",
           "required": true
+        },{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }
+        ],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {
@@ -102,6 +147,11 @@
           "type": "string",
           "required": true
         }, {
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }, {
           "in": "body",
           "name": "body",
           "required": true,
@@ -113,6 +163,9 @@
               "lastName": {"type": "string", "example": "Cena"}
             }
           }
+        }],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {
@@ -133,6 +186,14 @@
           "name": "id",
           "type": "string",
           "required": true
+        },{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {
@@ -140,7 +201,6 @@
           }
         }
       }
-
     },
     "/api/v1/products": {
       "get": {
@@ -148,7 +208,15 @@
         "tags": [
           "Products"
         ],
-        "parameters": [],
+        "parameters": [{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }],
+        "security": [{
+          "ApiKeyAuth": []
+        }],
         "responses": {
           "200": {
             "description": "Get all Products",
@@ -168,6 +236,11 @@
         ],
         "parameters": [
           {
+            "in": "header",
+            "name": "authorization",
+            "required": true,
+            "type": "string"
+          }, {
             "in": "body",
             "name": "body",
             "required": true,
@@ -181,7 +254,11 @@
                 }
               }
             }
-          }        ],
+          }
+        ],
+        "security": [{
+          "ApiKeyAuth": []
+        }],
         "responses": {
           "201": {
             "description": "Create new Product",
@@ -203,6 +280,14 @@
           "name": "id",
           "type": "string",
           "required": true
+        },{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {
@@ -218,11 +303,17 @@
         "tags": [
           "Products"
         ],
-        "parameters": [{
+        "parameters": [
+          {
           "in": "path",
           "name": "id",
           "type": "string",
           "required": true
+        }, {
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
         }, {
           "in": "body",
           "name": "body",
@@ -234,6 +325,9 @@
               "name": {"type": "string", "example": "My awesome product!"}
             }
           }
+        }],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {
@@ -254,6 +348,14 @@
           "name": "id",
           "type": "string",
           "required": true
+        },{
+          "in": "header",
+          "name": "authorization",
+          "required": true,
+          "type": "string"
+        }],
+        "security": [{
+          "ApiKeyAuth": []
         }],
         "responses": {
           "200": {

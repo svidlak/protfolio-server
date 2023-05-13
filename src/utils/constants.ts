@@ -3,7 +3,8 @@ import user from '../models/User'
 
 enum ENTITIES {
     PRODUCTS = 'products',
-    USERS = 'users'
+    USERS = 'users',
+    AUTH = 'auth'
 }
 
 const ENTITY_MODELS = {

@@ -7,7 +7,7 @@ import morgan from 'morgan'
 dotenv.config()
 
 if (!process.env.PORT) {
-    console.log('No port provided')
+    logger.error('No port provided')
     process.exit(1)
 }
 
@@ -17,6 +17,8 @@ import {errorHandler, routeNotFound, requestRateLimit, requestBodyValidator} fro
 
 import * as v1Routes from './routes/v1'
 import * as v2Routes from './routes/v2'
+import authHandler from './middlewares/authMiddleware'
+import logger from "./utils/logger";
 
 const app = new App({
     port: parseInt(process.env.PORT),
@@ -27,6 +29,7 @@ const app = new App({
     preRouteMiddlewares: [
         cors(),
         requestRateLimit,
+        authHandler,
         express.json(),
         morgan('short'),
         requestBodyValidator()

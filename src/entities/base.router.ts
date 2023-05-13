@@ -1,7 +1,7 @@
 import express from 'express'
 
 class BaseRouter {
-    private entity: string
+    private readonly entity: string
     private controller: any
 
     public router = express.Router()
@@ -15,7 +15,6 @@ class BaseRouter {
     }
 
     private initBaseRoutes(): void {
-        console.log(this.entity)
         this.router
             .route(`/${this.entity}`)
             .get(this.controller.getEntities)

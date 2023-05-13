@@ -1,6 +1,6 @@
-import UsersController from '../../controllers/entities/users.controller'
+import UsersController from './users.controller'
+import BaseRouter from '../base.router'
 import {ENTITIES} from '../../utils/constants'
-import BaseRouter from './base.router'
 
 class UsersRouter extends BaseRouter {
     constructor(entity: string) {

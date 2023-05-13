@@ -6,9 +6,9 @@ import logger from './logger'
 function initSwagger(app: express.Application, port: number) {
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     app.use('*.css', (req, res, next) => {
-        res.set('Content-Type', 'text/css');
-        next();
-    });
+        res.set('Content-Type', 'text/css')
+        next()
+    })
 
     logger.info(`Swagger docs available on http://localhost:${port}/docs`)
 

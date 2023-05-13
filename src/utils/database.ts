@@ -1,6 +1,6 @@
 import Redis from 'ioredis'
 // import Redis from 'ioredis-mock'
-import {IEntitiesArrayTuple, IEntitiesTuple} from "../interfaces";
+import {IEntitiesArrayTuple, IEntitiesTuple} from '../interfaces'
 
 class Database {
     private redis: Redis

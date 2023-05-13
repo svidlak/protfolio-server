@@ -1,6 +1,6 @@
 import ProductsController from '../../controllers/entities/products.controller'
-import BaseRouter from "./base.router";
-import {ENTITIES} from "../../utils/constants";
+import BaseRouter from './base.router'
+import {ENTITIES} from '../../utils/constants'
 
 class ProductsRouter extends BaseRouter{
     constructor(entity: string) {

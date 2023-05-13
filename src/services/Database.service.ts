@@ -1,6 +1,6 @@
 import {IEntitiesArrayTuple, IEntitiesTuple} from '../interfaces'
 import redisDatabase from '../utils/database'
-import {ENTITY_MODELS} from "../utils/constants";
+import {ENTITY_MODELS} from '../utils/constants'
 
 class DatabaseService {
     private readonly entity: string

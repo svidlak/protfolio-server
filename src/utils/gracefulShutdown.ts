@@ -1,6 +1,6 @@
 import http from 'http'
 import logger from './logger'
-import Database from "./database";
+import Database from './database'
 
 const gracefulShutdown = (server: http.Server): void => {
     ['SIGINT', 'SIGTERM', 'SIGQUIT'].forEach( signal => {

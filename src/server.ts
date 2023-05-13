@@ -13,11 +13,10 @@ if (!process.env.PORT) {
 
 import App from './app'
 import gracefulShutdown from './utils/gracefulShutdown'
-import {errorHandler, routeNotFound, requestRateLimit, requestBodyValidator} from './middlewares'
+import {errorHandler, routeNotFound, requestRateLimit, requestBodyValidator, authHandler} from './middlewares'
 
 import * as v1Routes from './routes/v1'
 import * as v2Routes from './routes/v2'
-import authHandler from './middlewares/authMiddleware'
 import logger from "./utils/logger";
 
 const app = new App({
@@ -29,9 +28,9 @@ const app = new App({
     preRouteMiddlewares: [
         cors(),
         requestRateLimit,
-        authHandler,
         express.json(),
         morgan('short'),
+        authHandler,
         requestBodyValidator()
     ],
     postRouteMiddlewares: [

@@ -38,9 +38,16 @@ class BaseController {
         }
     }
 
-    public setEntityIdFromRequestParams = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-        req.body.id = req.params.id
-        next()
+    public updateEntity = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+        try {
+            const entity = await this.databaseService.getEntityById(req.params.id)
+            const updatedEntity = { ...entity, ...req.body, id: req.params.id }
+            const savedEntity = await this.databaseService.saveEntity(updatedEntity)
+            res.status(200).json(savedEntity)
+        } catch (err){
+            res.status(400).send('Entity update failed')
+            next(err)
+        }
     }
 
     public deleteEntityById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

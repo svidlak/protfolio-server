@@ -26,6 +26,7 @@ class Database {
     public async deleteEntityById(entityType: string, entityId: string): Promise<void> {
         const entity = await this.getEntityById(entityType, entityId)
         entity.isActive = false
+        entity.updatedAt = new Date().toISOString()
         await this.saveEntity(entityType, entity)
     }
 

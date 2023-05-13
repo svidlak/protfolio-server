@@ -25,10 +25,7 @@ class BaseRouter {
         this.router
             .route(`/${this.entity}/:id`)
             .get(this.controller.getEntityById)
-            .put([
-                this.controller.setEntityIdFromRequestParams,
-                this.controller.saveEntity
-            ])
+            .put(this.controller.updateEntity)
             .delete(this.controller.deleteEntityById)
     }
 }

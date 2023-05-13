@@ -9,6 +9,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
+  "files": [
+    "src/custom.d.ts"
+  ],
   "include": [
     "src/**/*.ts"
   ],

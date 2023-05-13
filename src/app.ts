@@ -1,46 +1,44 @@
 import express from 'express'
-import { createServer } from 'http'
-import Websocket from "./services/Websocket";
+import {IAppInit, IRoutes} from './interfaces'
+import * as http from 'http'
+import logger from './utils/logger'
+import initSwagger from './utils/swagger'
 
 class App {
     private readonly app: express.Application
     private readonly port: number
-    private readonly server: any
-    private websocket: any
 
-    constructor(appInit: { port: number; middleWares: any; controllers: any; }) {
+    constructor(appInit: IAppInit) {
         this.app = express()
         this.port = appInit.port
 
+        initSwagger(this.app, this.port)
         this.serveClient()
-        this.middlewares(appInit.middleWares)
-        this.routes(appInit.controllers)
-
-        this.server = createServer(this.app)
-        this.websocket = new Websocket(this.server)
+        this.middlewares(appInit.preRouteMiddlewares)
+        this.routes(appInit.routesConfig)
+        this.middlewares(appInit.postRouteMiddlewares)
     }
 
-    private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void; }) {
-        middleWares.forEach(middleWare => {
-            this.app.use(middleWare)
+    private middlewares(middleWares): void {
+        this.app.use(middleWares)
+    }
+
+    private routes(routesConfig: IRoutes[]): void {
+        routesConfig.forEach(routeConfig => {
+            const {prefix, routes} = routeConfig
+            this.app.use(prefix, routes)
         })
     }
 
-    private routes(controllers: { forEach: (arg0: (controller: any) => void) => void; }) {
-        controllers.forEach(controller => {
-            this.app.use(controller.router)
-        })
-    }
-
-    private serveClient() {
+    private serveClient(): void {
         this.app.use(express.static('public'))
     }
 
-    public listen() {
-        this.server.listen(this.port, () => {
-            console.log(`App listening on the http://localhost:${this.port}`)
+    public listen(): http.Server {
+        return this.app.listen(this.port, () => {
+            logger.info(`App listening on the http://localhost:${this.port}`)
         })
     }
 }
 
-export default App;
+export default App

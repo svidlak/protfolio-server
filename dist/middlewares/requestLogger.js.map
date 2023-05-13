@@ -1,1 +1,0 @@
-{"version":3,"file":"requestLogger.js","sourceRoot":"","sources":["../../src/middlewares/requestLogger.ts"],"names":[],"mappings":";;AAEA,MAAM,uBAAuB,GAAG,CAAC,GAAY,EAAE,IAAc,EAAE,IAAI,EAAE,EAAE;IACnE,OAAO,CAAC,GAAG,CAAC,iBAAiB,EAAE,GAAG,CAAC,MAAM,EAAE,GAAG,CAAC,IAAI,CAAC,CAAA;IACpD,IAAI,EAAE,CAAA;AACV,CAAC,CAAA;AAED,kBAAe,uBAAuB,CAAA"}

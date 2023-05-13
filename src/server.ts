@@ -1,27 +1,41 @@
-import dotenv from "dotenv"
-import App from './app'
+import dotenv from 'dotenv'
+import express from 'express'
+import http from 'http'
+import cors from 'cors'
+import morgan from 'morgan'
 
-dotenv.config();
+dotenv.config()
 
 if (!process.env.PORT) {
     console.log('No port provided')
-    process.exit(1);
+    process.exit(1)
 }
 
-import loggerMiddleware from './middlewares/requestLogger'
-import routeNotFound from "./middlewares/routeNotFound";
+import App from './app'
+import gracefulShutdown from './utils/gracefulShutdown'
+import {errorHandler, routeNotFound, requestRateLimit, requestBodyValidator} from './middlewares'
 
-import HomeController from './controllers/home.controller'
+import * as v1Routes from './routes/v1'
+import * as v2Routes from './routes/v2'
 
 const app = new App({
     port: parseInt(process.env.PORT),
-    controllers: [
-        new HomeController(),
+    routesConfig: [
+        { prefix: '/api/v1', routes: v1Routes.default },
+        { prefix: '/api/v2', routes: v2Routes.default }
     ],
-    middleWares: [
-        loggerMiddleware,
-        routeNotFound
+    preRouteMiddlewares: [
+        cors(),
+        requestRateLimit,
+        express.json(),
+        morgan('short'),
+        requestBodyValidator()
+    ],
+    postRouteMiddlewares: [
+        routeNotFound,
+        errorHandler
     ]
 })
 
-app.listen()
+const server: http.Server = app.listen()
+gracefulShutdown(server)

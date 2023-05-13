@@ -1,0 +1,287 @@
+{
+  "info": {
+    "title": "REST API",
+    "version": "0.0.1",
+    "description": "Documentation of the RESTful API"
+  },
+  "swagger": "2.0",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "summary": "Get all Users",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get all Users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new User",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "lastName"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Cena"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Create new User",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "summary": "Get single user by Id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Get single user by Id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update single user by Id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema":  {
+            "type": "object",
+            "required": ["name", "lastName"],
+            "properties": {
+              "name": {"type": "string", "example": "John"},
+              "lastName": {"type": "string", "example": "Cena"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Update single user by Id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete single user by Id",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+
+    },
+    "/api/v1/products": {
+      "get": {
+        "summary": "Get all Products",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get all Products",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new Product",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "My number 1 product!"
+                }
+              }
+            }
+          }        ],
+        "responses": {
+          "201": {
+            "description": "Create new Product",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/products/{id}": {
+      "get": {
+        "summary": "Get single product by Id",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "Get single product by Id",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update single product by Id",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema":  {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string", "example": "My awesome product!"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Update single product by Id",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete single Products by Id",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "200": {
+            "description": "200 Ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": ["name", "lastName"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string", "example": "John"},
+        "lastName": {"type": "string", "example": "Cena"},
+        "isActive": {"type": "boolean", "example": true }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string", "example": "My awesome product" },
+        "isActive": {"type": "boolean", "example": true}
+      }
+    }
+  }
+}

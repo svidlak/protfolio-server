@@ -4,7 +4,7 @@ class AuthService {
     private readonly token: any
 
     constructor() {
-        this.token = jwt.sign({user: 'someUser'}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
+        this.token = jwt.sign({user: 'someUser'}, process.env.TOKEN_SECRET)
     }
 
     get autToken() {

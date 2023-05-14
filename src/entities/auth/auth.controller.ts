@@ -10,7 +10,6 @@ class AuthController {
 
     public getToken = (req: Request, res: Response) => {
         const token = this.authService.autToken
-        res.setHeader('authorization', this.authService.autToken)
         res.status(200).send(token)
     }
 }

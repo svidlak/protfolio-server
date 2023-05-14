@@ -6,7 +6,7 @@ class Database {
     private redis: Redis
 
     constructor() {
-        this.redis = new Redis()
+        this.redis = new Redis('redis://redis:6379')
     }
 
     public saveEntity(entityType: string, entity: IEntitiesTuple): Promise<number> {

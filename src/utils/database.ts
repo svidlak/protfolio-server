@@ -2,11 +2,15 @@ import Redis from 'ioredis'
 // import Redis from 'ioredis-mock'
 import {IEntitiesArrayTuple, IEntitiesTuple} from '../interfaces'
 
+if(!process.env.REDIS_SERVER_URL) {
+    throw new Error('Please provide Redis Server URL including port: redis://URL:6379')
+}
+
 class Database {
     private redis: Redis
 
     constructor() {
-        this.redis = new Redis('redis://redis:6379')
+        this.redis = new Redis(process.env.REDIS_SERVER_URL)
     }
 
     public saveEntity(entityType: string, entity: IEntitiesTuple): Promise<number> {
@@ -30,7 +34,7 @@ class Database {
         await this.saveEntity(entityType, entity)
     }
 
-    public close(cb): void {
+    public close(cb: ()=> void): void {
         this.redis.quit(cb)
     }
 }

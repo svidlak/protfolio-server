@@ -17,5 +17,6 @@ services:
     environment:
       - PORT=8080
       - TOKEN_SECRET=thisismysecret
+      - REDIS_SERVER_URL=redis://redis:6379
     command:
       sh -c 'npm i && npm start'
